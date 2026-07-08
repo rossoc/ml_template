@@ -1,11 +1,16 @@
 import matplotlib.pyplot as plt
 from typing import Literal, Any
 from matplotlib import font_manager
+from pathlib import Path
 import pandas as pd
 import numpy as np
 from matplotlib.backends.backend_pdf import PdfPages
 
-_FONT = font_manager.FontProperties(fname="note/fonts/HKGrotesk-Regular.ttf")
+path_a = Path("src/view/fonts/HKGrotesk-Regular.ttf")
+path_b = Path("../src/view/fonts/HKGrotesk-Regular.ttf")
+font_path = path_a if path_a.exists() else path_b
+
+_FONT = font_manager.FontProperties(fname=str(font_path))
 
 _COLORS = [
     "red",
@@ -461,7 +466,7 @@ class Figure:
 
     def show(self):
         self.fig.tight_layout()
-        self.fig.show()
+        self.fig.show(warn=False)
 
     def axhline(self, data, color, linestyle):
         for label, y in data.items():
