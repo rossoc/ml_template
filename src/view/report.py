@@ -1,6 +1,7 @@
 from matplotlib.backends.backend_pdf import PdfPages
 from pathlib import Path
 from .figure import Figure
+import os
 
 
 class Report:
@@ -16,6 +17,10 @@ class Report:
         return fig
 
     def save(self, filename):
+        _, ext = os.path.splitext(filename)
+        if not ext:
+            filename += ".pdf"
+            
         with PdfPages(self.output_dir / filename) as pdf:
             for fig in self.figures:
                 fig.save(pdf=pdf)
