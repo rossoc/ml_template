@@ -4,6 +4,7 @@ from matplotlib import font_manager
 from pathlib import Path
 import pandas as pd
 import numpy as np
+import os
 from matplotlib.backends.backend_pdf import PdfPages
 
 path_a = Path("src/view/fonts/HKGrotesk-Regular.ttf")
@@ -462,7 +463,11 @@ class Figure:
         if pdf is not None:
             pdf.savefig(self.fig, bbox_inches="tight")
         else:
-            fig.savefig(f"{figure_name}.pdf", bbox_inches="tight")
+            _, ext = os.path.splitext(figure_name)
+            if ext:
+                fig.savefig(figure_name, bbox_inches="tight")
+            else:
+                fig.savefig(f"{figure_name}.pdf", bbox_inches="tight")
 
     def show(self):
         self.fig.tight_layout()
