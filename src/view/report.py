@@ -5,7 +5,7 @@ import os
 
 
 class Report:
-    def __init__(self, output_dir="assets"):
+    def __init__(self, output_dir=""):
         self.figures = []
         self.output_dir = Path(output_dir)
 
@@ -20,7 +20,7 @@ class Report:
         _, ext = os.path.splitext(filename)
         if not ext:
             filename += ".pdf"
-            
+
         with PdfPages(self.output_dir / filename) as pdf:
             for fig in self.figures:
                 fig.save(pdf=pdf)
